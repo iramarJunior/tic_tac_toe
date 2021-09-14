@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/alert_dialog.dart';
+import 'package:tic_tac_toe/components/alert_dialog.dart';
+import 'package:tic_tac_toe/components/player.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -11,9 +12,7 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> {
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(BuildContext context) => Container();
 }
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _scoreX = 0;
   int _scoreO = 0;
-  bool _turnOfO = true;
+  bool _turnOf = true;
   int _filledBoxes = 0;
   final List<String> _xOrOList = [
     '',
@@ -45,25 +44,23 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.black,
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              _clearBoard();
-            },
-          )
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                _clearBoard();
+              })
         ],
         title: const Text(
           'Tic Tac Toe',
           style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w800
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           _buildPointsTable(),
@@ -75,77 +72,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildPointsTable() {
-    return Expanded(
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(
-                20.0,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Player O',
-                    style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    _scoreO.toString(),
-                    style: const TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                20.0,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Player X',
-                    style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    _scoreX.toString(),
-                    style: const TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Player(score: _scoreO, name: 'Player O'),
+          Player(score: _scoreX, name: 'Player X')
+        ],
       ),
     );
   }
 
   Widget _buildGrid() {
     return Expanded(
-      flex: 3,
-      child: GridView.builder(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
           itemCount: 9,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
@@ -156,32 +99,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 _tapped(index);
               },
               child: Container(
-                decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey)),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 2.0),
+                ),
                 child: Center(
                   child: Text(
                     _xOrOList[index],
                     style: TextStyle(
                       color:
-                      _xOrOList[index] == 'x' ? Colors.white : Colors.red,
-                      fontSize: 40,
+                          _xOrOList[index] == 'x' ? Colors.white : Colors.red,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
             );
-          }),
+          },
+        ),
+      ),
     );
   }
 
   Widget _buildTurn() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(32.0),
       child: Center(
         child: Text(
-          _turnOfO ? 'Turn of O' : 'Turn of X',
+          _turnOf ? 'Turn of O' : 'Turn of X',
           style: const TextStyle(
-              color: Colors.white,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -190,15 +138,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _tapped(int index) {
     setState(() {
-      if (_turnOfO && _xOrOList[index] == '') {
+      if (_turnOf && _xOrOList[index] == '') {
         _xOrOList[index] = 'o';
         _filledBoxes += 1;
-      } else if (!_turnOfO && _xOrOList[index] == '') {
+      } else if (!_turnOf && _xOrOList[index] == '') {
         _xOrOList[index] = 'x';
         _filledBoxes += 1;
       }
 
-      _turnOfO = !_turnOfO;
+      _turnOf = !_turnOf;
       _checkTheWinner();
     });
   }

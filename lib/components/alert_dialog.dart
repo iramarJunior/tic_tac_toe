@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ Future<void> showAlertDialog({
   required String title,
   required String content,
   required String defaultActionText,
-  required final VoidCallback onOkPressed
+  required final VoidCallback onOkPressed,
 }) async {
   if (Platform.isIOS) {
     return await showCupertinoDialog(
@@ -32,7 +31,7 @@ Future<void> showAlertDialog({
       title: Text(title),
       content: Text(content),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           onPressed: () => onOkPressed(),
           child: Text(defaultActionText),
         ),

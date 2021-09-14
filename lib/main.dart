@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/home_screen.dart';
+import 'package:tic_tac_toe/pages/home_screen.dart';
 
 void main() => runApp(const TicTacToeApp());
 
@@ -8,9 +8,10 @@ class TicTacToeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      theme: ThemeData(fontFamily: 'dogica'),
+      home: const HomeScreen(),
     );
   }
 }
