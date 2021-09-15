@@ -61,62 +61,67 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildPointsTable(),
-          _buildGrid(),
-          _buildTurn(),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            _buildPointsTable(),
+            _buildGrid(),
+            _buildTurn(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildPointsTable() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Player(score: _scoreO, name: 'Player O'),
-          Player(score: _scoreX, name: 'Player X')
-        ],
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Player(score: _scoreO, name: 'Player O'),
+            Player(score: _scoreX, name: 'Player X')
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildGrid() {
-    return Container(
-      height: 480,
-      padding: const EdgeInsets.all(8.0),
-      // color: Colors.amber,
-      child: GridView.builder(
-        itemCount: 9,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              _tapped(index);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2.0),
-              ),
-              child: Center(
-                child: Text(
-                  _xOrOList[index],
-                  style: TextStyle(
-                    color: _xOrOList[index] == 'x' ? Colors.white : Colors.red,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
+    return Expanded(
+      flex: 4,
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          itemCount: 9,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                _tapped(index);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 1.0),
+                ),
+                child: Center(
+                  child: Text(
+                    _xOrOList[index],
+                    style: TextStyle(
+                      color:
+                          _xOrOList[index] == 'x' ? Colors.blue : Colors.green,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
