@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       backgroundColor: Colors.black,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildPointsTable(),
           _buildGrid(),
@@ -85,38 +86,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildGrid() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          itemCount: 9,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                _tapped(index);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2.0),
-                ),
-                child: Center(
-                  child: Text(
-                    _xOrOList[index],
-                    style: TextStyle(
-                      color:
-                          _xOrOList[index] == 'x' ? Colors.white : Colors.red,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Container(
+      height: 480,
+      padding: const EdgeInsets.all(8.0),
+      // color: Colors.amber,
+      child: GridView.builder(
+        itemCount: 9,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              _tapped(index);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 2.0),
+              ),
+              child: Center(
+                child: Text(
+                  _xOrOList[index],
+                  style: TextStyle(
+                    color: _xOrOList[index] == 'x' ? Colors.white : Colors.red,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
