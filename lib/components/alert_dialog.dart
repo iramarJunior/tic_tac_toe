@@ -28,12 +28,21 @@ Future<void> showAlertDialog({
   return await showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text(title),
-      content: Text(content),
+      title: Text(
+        title,
+        style: const TextStyle(fontFamily: 'Roboto'),
+      ),
+      content: Text(
+        content,
+        style: const TextStyle(fontFamily: 'Roboto'),
+      ),
       actions: <Widget>[
         TextButton(
           onPressed: () => onOkPressed(),
-          child: Text(defaultActionText),
+          child: Text(
+            defaultActionText,
+            style: const TextStyle(fontFamily: 'Roboto'),
+          ),
         ),
       ],
     ),
