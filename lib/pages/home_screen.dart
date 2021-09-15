@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1.0),
+                  border: Border.all(color: Colors.white, width: 0.5),
                 ),
                 child: Center(
                   child: Text(
