@@ -111,8 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     _xOrOList[index],
                     style: TextStyle(
-                      color:
-                          _xOrOList[index] == 'x' ? Colors.blue : Colors.green,
+                      color: _xOrOList[index] == 'x'
+                          ? const Color(0xff00ff00)
+                          : Colors.orange[700],
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),
