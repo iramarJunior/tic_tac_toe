@@ -50,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
-                _clearBoard();
+                // _clearBoard();
+                _refresh();
               })
         ],
         title: const Text(
@@ -256,5 +257,16 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     _filledBoxes = 0;
+  }
+
+  void _refresh() {
+    setState(() {
+      _scoreO = 0;
+      _scoreX = 0;
+
+      for (int i = 0; i < 9; i++) {
+        _xOrOList[i] = '';
+      }
+    });
   }
 }
